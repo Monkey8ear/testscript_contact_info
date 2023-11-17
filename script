@@ -1,0 +1,26 @@
+from selenium import webdriver
+
+# Шаг 1: Открытие сайта Google
+driver = webdriver.Chrome()
+driver.get("https://www.google.ru")
+
+# Шаг 2: Ввод запроса в поисковую строку
+search_box = driver.find_element(By.NAME, "q")
+search_box.send_keys("Byndyusoft")
+
+# Шаг 3: Переход по первой ссылке
+first_link = driver.find_element(By.CSS_SELECTOR, "div.r> a")
+first_link.click()
+
+# Шаг 4: Проверка наличия ссылки на Telegram
+telegram_link = driver.find_element_by_css_selector("ahref \* ='t.me/'")
+
+# Шаг 5: Проверка соответствия ссылки ожидаемой ссылке
+if telegram_link is not None and telegram_link.get_attribute("href") == "http://t.me/alexanderbyndyu":
+    print("Ссылка на Telegram соответствует ожидаемой")
+else:
+    print("Ссылка на Telegram не соответствует ожидаемой")
+
+# Шаг 6: Закрытие браузера
+driver.close()
+driver.quit()
